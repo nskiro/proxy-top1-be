@@ -16,6 +16,13 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
+Route.get('/', ({response})=>{
+  return response.status(200).json({
+    status: 'success',
+    result: null
+  })
+})
+
 Route.group(() => {
   Route.post('user/register', 'UserController.create')
   Route.post('user/login', 'UserController.loginUser')
