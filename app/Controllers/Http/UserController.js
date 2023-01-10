@@ -1,6 +1,5 @@
 'use strict'
 const { validate } = use('Validator')
-const Database = use('Database')
 const Logger = use('Logger')
 const Hash = use('Hash')
 const User = use('App/Models/User')

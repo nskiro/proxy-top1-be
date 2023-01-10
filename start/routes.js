@@ -28,4 +28,6 @@ Route.group(() => {
   Route.post('user/login', 'UserController.loginUser')
   Route.post('user/info', 'UserController.getInfo').middleware('auth')
   Route.post('user/logout', 'UserController.logoutUser').middleware('auth')
+
+  Route.post('recharge/getQR', 'RechargeController.getQRCode').middleware('auth')
 }).prefix('v1')
