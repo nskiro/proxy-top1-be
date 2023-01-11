@@ -30,4 +30,5 @@ Route.group(() => {
   Route.post('user/logout', 'UserController.logoutUser').middleware('auth')
 
   Route.post('recharge/getQR', 'RechargeController.getQRCode').middleware('auth')
+  Route.get('recharge/getBank', 'RechargeController.getBankAcc').middleware('auth')
 }).prefix('v1')

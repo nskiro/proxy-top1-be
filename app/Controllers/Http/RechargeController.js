@@ -1,6 +1,7 @@
 'use strict'
 const Logger = use('Logger')
 const QrCode = use('qrcode')
+const BankAccount = use('App/Models/BankAccount')
 const {crc16_ccitt} = require('../../../helpers/Crc16')
 
 class RechargeController {
@@ -25,6 +26,25 @@ class RechargeController {
     catch(err)
     {
       Logger.error("RechargeController.getQRCode")
+      Logger.error(err.name + ": " + err.message)
+      return response.status(400).json({
+        status: "error",
+        result: null
+      })
+    }
+  }
+
+  async getBankAcc({request, response, auth}){
+    try{
+      await auth.check() 
+      const bankAcc = await BankAccount.all()
+      return response.status(200).json({
+        status: "success",
+        result: bankAcc
+      })
+    }
+    catch(err){
+      Logger.error("RechargeController.getBankAcc")
       Logger.error(err.name + ": " + err.message)
       return response.status(400).json({
         status: "error",
