@@ -37,7 +37,7 @@ class RechargeController {
   async getBankAcc({request, response, auth}){
     try{
       await auth.check() 
-      const bankAcc = await BankAccount.all()
+      const bankAcc = await BankAccount.query().setVisible(['id', 'bankName']).fetch()
       return response.status(200).json({
         status: "success",
         result: bankAcc
