@@ -11,10 +11,9 @@ class RechargeController {
       const loggedUser = await auth.getUser()
       const {username} = loggedUser.toJSON()
       const memo = "TOP1 " + username
-      const postData = request.only(['amount'])
-      const bankID = "970436"
-      const bankAcc = "0111000152596"
-      let qrstring = "00020101021238570010A00000072701270006"+ bankID + "0113" + bankAcc + "0208QRIBFTTA5303704540" + postData.amount.length + postData.amount
+      const postData = request.only(['amount','id'])
+      const bankAcc = await BankAccount.findOrFail(postData.id)
+      let qrstring = "00020101021238570010A00000072701270006"+ bankAcc.binID + "01" + bankAcc.accNumber.length + bankAcc.accNumber + "0208QRIBFTTA5303704540" + postData.amount.length + postData.amount
       qrstring += "5802VN62" + (memo.length + 4) + "08" + memo.length + memo + "6304"
       qrstring += crc16_ccitt(qrstring).toString(16).toUpperCase()
       const qrImg = await QrCode.toDataURL(qrstring)
