@@ -14,7 +14,7 @@ class RechargeController {
       const postData = request.only(['amount','id'])
       const bankAcc = await BankAccount.findOrFail(postData.id)
       const data38 = "0010A00000072701" + (14 + bankAcc.accNumber.length) + "0006"+ bankAcc.binID + "01" + bankAcc.accNumber.length.toString().padStart(2, '0') + bankAcc.accNumber + "0208QRIBFTTA"
-      let qrstring = "00020101021238"+ data38.length + data38 +"5303704540" + postData.amount.length + postData.amount
+      let qrstring = "00020101021238"+ data38.length + data38 +"5303704540" + postData.amount.toString().length + postData.amount
       qrstring += "5802VN62" + (memo.length + 4) + "08" + memo.length + memo + "6304"
       qrstring += crc16_ccitt(qrstring).toString(16).toUpperCase()
       const qrImg = await QrCode.toDataURL(qrstring)
