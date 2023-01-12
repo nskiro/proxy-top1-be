@@ -27,6 +27,7 @@ Factory.blueprint('App/Models/BankAccount', async (faker, i, data) => {
   return {
     bankName: data[i].bankName,
     binID: data[i].binID,
+    accName: data[i].accName,
     accNumber: data[i].accNumber
   }
 })

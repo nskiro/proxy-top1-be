@@ -20,7 +20,11 @@ class RechargeController {
       const qrImg = await QrCode.toDataURL(qrstring)
       return response.status(200).json({
         status: "success",
-        result: qrImg
+        result: {
+          qr: qrImg,
+          accNumber: bankAcc.accNumber,
+          accHolder: bankAcc.accName
+        }
       })
     }
     catch(err)

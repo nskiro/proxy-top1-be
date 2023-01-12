@@ -9,6 +9,7 @@ class BankAccountSchema extends Schema {
       table.increments()
       table.string('bankName', 255).notNullable().unique()
       table.string('binID', 6).notNullable().unique().index()
+      table.string('accName', 30).notNullable()
       table.string('accNumber', 20).notNullable().unique().index()
       table.timestamps()
     })

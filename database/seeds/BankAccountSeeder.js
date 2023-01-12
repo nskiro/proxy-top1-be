@@ -17,11 +17,17 @@ class BankAccountSeeder {
   async run () {
     const bankAcc = await Factory
                       .model('App/Models/BankAccount')
-                      .createMany(1,[
+                      .createMany(2,[
                         {
                           bankName: 'Vietcombank',
                           binID: '970436',
+                          accName: 'NGUYEN MINH THONG',
                           accNumber: '0111000152596'
+                        },{
+                          bankName: 'VIB',
+                          binID: '970441',
+                          accName: 'HO MINH TAM',
+                          accNumber: '362099098'
                         }])
   }
 }
