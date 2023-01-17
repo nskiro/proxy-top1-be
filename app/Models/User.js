@@ -34,6 +34,10 @@ class User extends Model {
   tokens () {
     return this.hasMany('App/Models/Token')
   }
+
+  rechargeHistories(){
+    return this.belongsToMany('App/Models/BankAccount').pivotModel('App/Models/RechargeHistory')
+  }
 }
 
 module.exports = User

@@ -2,6 +2,8 @@
 const Logger = use('Logger')
 const QrCode = use('qrcode')
 const BankAccount = use('App/Models/BankAccount')
+const User = use('App/Models/User')
+const RechargeHistory = use('App/Models/RechargeHistory')
 const {crc16_ccitt} = require('../../../helpers/Crc16')
 
 class RechargeController {
@@ -60,10 +62,37 @@ class RechargeController {
   async received({request, response}){
     try{
       Logger.info(request.raw())
-      return response.status(200).json({
-        status: "success",
-        result: null
-      })
+      const postData = JSON.parse(request.raw())
+      if(postData.hasOwnProperty("memo")){
+        const regex = /\VCB\s(.+?)\s+(.+?)\sVND(?:.*)TOP1\s(.+?)$/gm;
+        let regMatch = regex.exec(postData.memo)
+        if(regMatch.length == 4){
+          const amount = parseInt(regMatch[2].replace(",",""))
+          //Get bank account id
+          const bankAcc = await BankAccount.findByOrFail('accNumber', regMatch[1])
+          //Update account balance by username
+          const user = await User.findByOrFail('username', regMatch[3])
+          user.balance = user.balance + amount
+          await user.save()
+          //Update recharge history
+          const recHis = new RechargeHistory()
+          recHis.user_id = user.id
+          recHis.bank_acc_id = bankAcc.id
+          recHis.rechargeAmount = amount
+          await recHis.save()
+
+          return response.status(200).json({
+            status: "success",
+            result: {
+              user: regMatch[3],
+              rechargeAmount: amount
+            }
+          })
+        }
+      }
+      else{
+        throw {"name": "Invalid POST data", "message": "POST data has not memo property"}
+      }
     }
     catch(err){
       Logger.error("RechargeController.received")
