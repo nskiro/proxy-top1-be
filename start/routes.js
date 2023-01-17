@@ -31,4 +31,5 @@ Route.group(() => {
 
   Route.post('recharge/getQR', 'RechargeController.getQRCode').middleware('auth')
   Route.get('recharge/getBank', 'RechargeController.getBankAcc').middleware('auth')
+  Route.get('recharge/received', 'RechargeController.received')
 }).prefix('v1')

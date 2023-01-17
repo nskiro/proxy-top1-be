@@ -38,7 +38,7 @@ class RechargeController {
     }
   }
 
-  async getBankAcc({request, response, auth}){
+  async getBankAcc({response, auth}){
     try{
       await auth.check() 
       const bankAcc = await BankAccount.query().setVisible(['id', 'bankName']).fetch()
@@ -49,6 +49,24 @@ class RechargeController {
     }
     catch(err){
       Logger.error("RechargeController.getBankAcc")
+      Logger.error(err.name + ": " + err.message)
+      return response.status(400).json({
+        status: "error",
+        result: null
+      })
+    }
+  }
+
+  async received({request, response}){
+    try{
+      Logger.info(request.only(['postData']))
+      return response.status(400).json({
+        status: "error",
+        result: null
+      })
+    }
+    catch(err){
+      Logger.error("RechargeController.received")
       Logger.error(err.name + ": " + err.message)
       return response.status(400).json({
         status: "error",
