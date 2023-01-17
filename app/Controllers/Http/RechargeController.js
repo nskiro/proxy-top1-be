@@ -60,8 +60,8 @@ class RechargeController {
   async received({request, response}){
     try{
       Logger.info(request.only(['postData']))
-      return response.status(400).json({
-        status: "error",
+      return response.status(200).json({
+        status: "success",
         result: null
       })
     }
