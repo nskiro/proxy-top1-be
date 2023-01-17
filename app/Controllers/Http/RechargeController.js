@@ -59,7 +59,7 @@ class RechargeController {
 
   async received({request, response}){
     try{
-      Logger.info(request.post())
+      Logger.info(request.raw())
       return response.status(200).json({
         status: "success",
         result: null
