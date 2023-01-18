@@ -5,7 +5,8 @@ const BankAccount = use('App/Models/BankAccount')
 const User = use('App/Models/User')
 const RechargeHistory = use('App/Models/RechargeHistory')
 const {crc16_ccitt} = require('../../../helpers/Crc16')
-
+const Redis = use('Redis')
+const Ws = use('Ws')
 class RechargeController {
   async getQRCode({request, response, auth}){
     try{
@@ -80,7 +81,15 @@ class RechargeController {
           recHis.bank_acc_id = bankAcc.id
           recHis.rechargeAmount = amount
           await recHis.save()
-
+          const userSocketId = await Redis.get(user.username)
+          if(userSocketId)
+          {
+            Logger.info(userSocketId)
+            const topic = Ws.getChannel('recharge').topic('recharge')
+            if(topic){
+              topic.emitTo('rechargeAmount', amount, [userSocketId])
+            }
+          }
           return response.status(200).json({
             status: "success",
             result: {
