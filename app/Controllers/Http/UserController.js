@@ -25,10 +25,10 @@ class UserController {
       // Thêm user vào database
       const user = await User.create(postData)
       const {password, ...resUser} = user.toJSON()
-        return response.status(200).json({
-          status: 'success',
-          result: resUser
-        })
+      return response.status(200).json({
+        status: 'success',
+        result: resUser
+      })
     }
     catch(err){
       Logger.error("UserController.create")

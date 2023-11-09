@@ -19,15 +19,15 @@ class BankAccountSeeder {
                       .model('App/Models/BankAccount')
                       .createMany(2,[
                         {
-                          bankName: 'Vietcombank',
-                          binID: '970436',
-                          accName: 'NGUYEN MINH THONG',
-                          accNumber: '0111000152596'
+                          bank_name: 'Vietcombank',
+                          bin_id: '970436',
+                          acc_name: 'NGUYEN MINH THONG',
+                          acc_number: '0111000152596'
                         },{
-                          bankName: 'VIB',
-                          binID: '970441',
-                          accName: 'HO MINH TAM',
-                          accNumber: '362099098'
+                          bank_name: 'VIB',
+                          bin_id: '970441',
+                          acc_name: 'HO MINH TAM',
+                          acc_number: '362099098'
                         }])
   }
 }

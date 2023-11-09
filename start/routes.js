@@ -32,4 +32,7 @@ Route.group(() => {
   Route.post('recharge/getQR', 'RechargeController.getQRCode').middleware('auth')
   Route.get('recharge/getBank', 'RechargeController.getBankAcc').middleware('auth')
   Route.post('recharge/received', 'RechargeController.received')
+
+  Route.get('forwardhost/list', 'Admin/ForwardHostController.getForwardHost')
+  Route.post('forwardhost/create', 'Admin/ForwardHostController.create')
 }).prefix('v1')
