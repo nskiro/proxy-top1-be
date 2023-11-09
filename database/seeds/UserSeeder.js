@@ -22,12 +22,12 @@ class UserSeeder {
                           username: 'minhtam91',
                           email: 'minhtamho91@gmail.com',
                           password: 'e10adc3949ba59abbe56e057f20f883e',
-                          isActive: true
+                          is_active: true
                         },{
                           username: 'thanhdat91',
                           email: 'dtd081291@gmail.com',
                           password: 'e10adc3949ba59abbe56e057f20f883e',
-                          isActive: true
+                          is_active: true
                         }])
   }
 }

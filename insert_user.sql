@@ -15,7 +15,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- Dumping data for table topone.users: ~2 rows (approximately)
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `balance`, `isActive`, `created_at`, `updated_at`) VALUES
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `balance`, `is_active`, `created_at`, `updated_at`) VALUES
 	(12, 'thanhdat91', 'dtd081291@gmail.com', '$2a$10$VsD482DH/JAyLrVCk923/ed1e5qtp7WilK6.p9C2iS4.tqk6ZrgNK', 0, 0, '2022-12-27 00:23:15', '2022-12-27 00:23:15'),
 	(13, 'minhtam91', 'minhtamho91@gmail.com', '$2a$10$AwwHHYWeTavvdZ3qyK.igO/7Ge3s8dMPy/YTro7CFO.m6zLpLMrHq', 0, 0, '2022-12-27 00:23:56', '2022-12-27 00:23:56');
 

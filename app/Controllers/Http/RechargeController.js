@@ -16,7 +16,7 @@ class RechargeController {
       const memo = "TOP1 " + username
       const postData = request.only(['amount','id'])
       const bankAcc = await BankAccount.findOrFail(postData.id)
-      const data38 = "0010A00000072701" + (14 + bankAcc.accNumber.length) + "0006"+ bankAcc.binID + "01" + bankAcc.accNumber.length.toString().padStart(2, '0') + bankAcc.accNumber + "0208QRIBFTTA"
+      const data38 = "0010A00000072701" + (14 + bankAcc.acc_number.length) + "0006"+ bankAcc.bin_id + "01" + bankAcc.acc_number.length.toString().padStart(2, '0') + bankAcc.acc_number + "0208QRIBFTTA"
       let qrstring = "00020101021238"+ data38.length + data38 +"5303704540" + postData.amount.toString().length + postData.amount
       qrstring += "5802VN62" + (memo.length + 4) + "08" + memo.length + memo + "6304"
       qrstring += crc16_ccitt(qrstring).toString(16).toUpperCase()
@@ -25,8 +25,8 @@ class RechargeController {
         status: "success",
         result: {
           qr: qrImg,
-          accNumber: bankAcc.accNumber,
-          accHolder: bankAcc.accName
+          acc_number: bankAcc.acc_number,
+          accHolder: bankAcc.acc_name
         }
       })
     }
@@ -44,7 +44,7 @@ class RechargeController {
   async getBankAcc({response, auth}){
     try{
       await auth.check() 
-      const bankAcc = await BankAccount.query().setVisible(['id', 'bankName']).fetch()
+      const bankAcc = await BankAccount.query().setVisible(['id', 'bank_name']).fetch()
       return response.status(200).json({
         status: "success",
         result: bankAcc
@@ -70,7 +70,7 @@ class RechargeController {
         if(regMatch.length == 4){
           const amount = parseInt(regMatch[2].replace(",",""))
           //Get bank account id
-          const bankAcc = await BankAccount.findByOrFail('accNumber', regMatch[1])
+          const bankAcc = await BankAccount.findByOrFail('acc_number', regMatch[1])
           //Update account balance by username
           const user = await User.findByOrFail('username', regMatch[3])
           user.balance = user.balance + amount
@@ -79,7 +79,7 @@ class RechargeController {
           const recHis = new RechargeHistory()
           recHis.user_id = user.id
           recHis.bank_acc_id = bankAcc.id
-          recHis.rechargeAmount = amount
+          recHis.recharge_amount = amount
           await recHis.save()
           const userSocketId = await Redis.get(user.username)
           if(userSocketId)
@@ -87,14 +87,14 @@ class RechargeController {
             Logger.info(userSocketId)
             const topic = Ws.getChannel('recharge').topic('recharge')
             if(topic){
-              topic.emitTo('rechargeAmount', amount, [userSocketId])
+              topic.emitTo('recharge_amount', amount, [userSocketId])
             }
           }
           return response.status(200).json({
             status: "success",
             result: {
               user: regMatch[3],
-              rechargeAmount: amount
+              recharge_amount: amount
             }
           })
         }

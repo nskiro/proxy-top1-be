@@ -8,11 +8,11 @@ class ProxiesSchema extends Schema {
     this.create('proxies', (table) => {
       table.increments()
       table.integer('proxy_host_id').unsigned().notNullable().references('id').inTable('proxy_hosts')
-      table.string('ipAddress', 15).notNullable().unique()
+      table.string('ip_address', 15).notNullable().unique()
       table.integer('port', 5).unsigned().notNullable()
       table.string('username', 10)
       table.string('password', 10)
-      table.string('allowedFromIP', 15)
+      table.string('allowed_from_ip', 15)
       table.timestamps()
     })
   }

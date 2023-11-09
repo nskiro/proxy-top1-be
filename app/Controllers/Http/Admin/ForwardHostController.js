@@ -8,11 +8,11 @@ class ForwardHostController {
     try{
       //Rules xác thực dữ liệu
       const rules = {
-        hostName: 'required|string|max:255',
-        ipAddress: 'required|max:15',
+        host_name: 'required|string|max:255',
+        ip_address: 'required|max:15',
         username: 'required|string|max:10',
         password: 'required|string|max:10',
-        vpsProvider: 'required|string|max:255'
+        vps_provider: 'required|string|max:255'
       }
       //Xác thực dữ liệu
       const validation = await validate(request.all(), rules)
@@ -38,6 +38,7 @@ class ForwardHostController {
       })
     }
   }
+  
   async getForwardHost({response}){
     try{
       const forwardHosts = await ForwardHost.query().fetch()

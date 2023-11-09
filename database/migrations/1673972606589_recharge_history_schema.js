@@ -9,7 +9,7 @@ class RechargeHistorySchema extends Schema {
       table.increments()
       table.integer('user_id').unsigned().notNullable().references('id').inTable('users')
       table.integer('bank_acc_id').unsigned().notNullable().references('id').inTable('bank_accounts')
-      table.integer('rechargeAmount').unsigned().notNullable()
+      table.integer('recharge_amount').unsigned().notNullable()
       table.timestamps()
     })
   }

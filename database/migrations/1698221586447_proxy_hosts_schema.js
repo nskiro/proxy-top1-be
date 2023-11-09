@@ -8,12 +8,12 @@ class ProxyHostsSchema extends Schema {
     this.create('proxy_hosts', (table) => {
       table.increments()
       table.integer('forward_host_id').unsigned().notNullable().references('id').inTable('forward_hosts')
-      table.string('hostName', 255).notNullable().unique()
+      table.string('host_name', 255).notNullable().unique()
       table.string('username', 10).notNullable()
       table.string('password', 10).notNullable()
       table.string('location', 255).notNullable()
-      table.string('networkISP', 255).notNullable()
-      table.integer('basePort', 5).unsigned().notNullable()
+      table.string('network_isp', 255).notNullable()
+      table.integer('base_port', 5).unsigned().notNullable()
       table.timestamps()
     })
   }

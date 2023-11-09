@@ -19,16 +19,16 @@ Factory.blueprint('App/Models/User', async (faker, i, data) => {
       username: data[i].username,
       email: data[i].email,
       password: data[i].password,
-      isActive: data[i].isActive
+      is_active: data[i].is_active
   }
 })
 
 Factory.blueprint('App/Models/BankAccount', async (faker, i, data) => {
   return {
-    bankName: data[i].bankName,
-    binID: data[i].binID,
-    accName: data[i].accName,
-    accNumber: data[i].accNumber
+    bank_name: data[i].bank_name,
+    bin_id: data[i].bin_id,
+    acc_name: data[i].acc_name,
+    acc_number: data[i].acc_number
   }
 })
 
